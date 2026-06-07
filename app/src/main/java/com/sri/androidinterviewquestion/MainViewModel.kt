@@ -21,16 +21,22 @@ class MainViewModel : ViewModel() {
             .build()
     }
 
-    val interviewQuestionsStateFlow: MutableStateFlow<InterviewQuestions?> = MutableStateFlow(null)
+    val interviewQuestionsListStateFlow: MutableStateFlow<InterviewQuestionsList?> =
+        MutableStateFlow(null)
 
     private val prompt = """
-        Generate an Android interview question.
+        Generate Android interview questions.
+        Generate atleast 20 questions for a 10 year experienced candidate.
         Return only JSON.
         Schema:
         {
-          "question": "",
-          "answer": "",
-          "difficulty": ""
+          "list": [
+            {
+              "question": "",
+              "answer": "",
+              "difficulty": ""
+            }
+          ]
         }
     """.trimIndent()
 
@@ -49,6 +55,7 @@ class MainViewModel : ViewModel() {
 
         while (attempt < maxAttempts) {
             try {
+                Log.d("TAG", "geminiResponse: request sent")
                 val response = client.models.generateContent(
                     "gemini-2.5-flash",
                     prompt,
@@ -90,8 +97,9 @@ class MainViewModel : ViewModel() {
                 .removeSuffix("```")
                 .trim()
             Log.d("TAG", "parseJson: cleanedResponse = $cleanedResponse")
-            val interviewQuestions = Gson().fromJson(cleanedResponse, InterviewQuestions::class.java)
-            interviewQuestionsStateFlow.value = interviewQuestions
+            val interviewQuestions =
+                Gson().fromJson(cleanedResponse, InterviewQuestionsList::class.java)
+            interviewQuestionsListStateFlow.value = interviewQuestions
         } catch (e: Exception) {
             Log.e("TAG", "parseJson: Error parsing JSON", e)
         }

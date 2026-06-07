@@ -16,7 +16,7 @@ A modern Android application that uses the Gemini AI model to generate technical
 - **UI Framework**: Jetpack Compose
 - **Asynchronous Programming**: Kotlin Coroutines & Flow
 - **AI Integration**: [Google GenAI SDK](https://github.com/google/generative-ai-android)
-- **JSON Parsing**: GSON
+- **JSON Parsing**: Kotlin Serialization
 - **Dependency Injection**: Manual (ViewModelProvider)
 - **Build System**: Gradle Kotlin DSL
 
