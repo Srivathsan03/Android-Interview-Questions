@@ -1,24 +1,35 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
+
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
+val geminiApiKey =
+    localProperties.getProperty("GEMINI_API_KEY")
 
 android {
     namespace = "com.sri.androidinterviewquestion"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.sri.androidinterviewquestion"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"$geminiApiKey\""
+        )
     }
 
     buildTypes {
@@ -34,6 +45,15 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/INDEX.LIST"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/LICENSE"
+            excludes += "/META-INF/NOTICE"
+        }
     }
 }
 
@@ -46,6 +66,13 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    implementation("com.google.genai:google-genai:1.57.0")
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.3.2"))
+    implementation("com.squareup.okhttp3:okhttp")
+
+    implementation("com.google.code.gson:gson:2.14.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
