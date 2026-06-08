@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.genai.Client
 import com.google.genai.errors.ClientException
 import com.google.genai.types.GenerateContentConfig
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.milliseconds
 
 class MainViewModel : ViewModel() {
@@ -97,8 +97,7 @@ class MainViewModel : ViewModel() {
                 .removeSuffix("```")
                 .trim()
             Log.d("TAG", "parseJson: cleanedResponse = $cleanedResponse")
-            val interviewQuestions =
-                Gson().fromJson(cleanedResponse, InterviewQuestionsList::class.java)
+            val interviewQuestions = Json.decodeFromString<InterviewQuestionsList>(cleanedResponse)
             interviewQuestionsListStateFlow.value = interviewQuestions
         } catch (e: Exception) {
             Log.e("TAG", "parseJson: Error parsing JSON", e)

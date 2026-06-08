@@ -67,11 +67,11 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation("com.google.genai:google-genai:1.57.0")
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.3.2"))
-    implementation("com.squareup.okhttp3:okhttp")
+    implementation(libs.google.genai)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
 
-    implementation("com.google.code.gson:gson:2.14.0")
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
