@@ -71,16 +71,26 @@ fun Questions(viewModel: MainViewModel) {
         ) {
             if (interviewQuestionsList == null) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            } else {
+            } else if (interviewQuestionsList.error != null) {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    LazyColumn() {
-                        items(interviewQuestionsList.list.size) { index ->
-                            val interviewQuestions = interviewQuestionsList.list[index]
-                            InterviewQuestionsView(interviewQuestions = interviewQuestions)
-                        }
+                    Text(
+                        text = interviewQuestionsList.error,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            } else {
+                LazyColumn() {
+                    items(interviewQuestionsList.list.size) { index ->
+                        val interviewQuestions = interviewQuestionsList.list[index]
+                        InterviewQuestionsView(interviewQuestions = interviewQuestions)
                     }
                 }
             }
