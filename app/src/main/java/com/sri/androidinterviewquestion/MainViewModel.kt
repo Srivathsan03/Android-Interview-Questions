@@ -14,8 +14,8 @@ class MainViewModel : ViewModel() {
         MutableStateFlow(null)
 
     private val prompt = """
-        Generate Android interview questions.
-        Generate atleast 20 questions.
+        Generate Android interview questions with brief answers.
+        Generate atleast 10 questions.
         Return only JSON.
         Schema:
         {
