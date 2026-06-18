@@ -1,31 +1,52 @@
 # Android Interview Question Generator
 
-A modern Android application that uses the Gemini AI model to generate technical interview questions on demand. This project demonstrates the integration of Google's GenAI SDK with Jetpack Compose and modern Android architecture.
+Android Interview Question Generator is an Android application that demonstrates how to generate structured AI responses using Google's Gemini API.
 
-## 🚀 Features
+The project focuses on transforming Gemini-generated JSON into strongly typed Kotlin models and displaying the results using a modern Jetpack Compose UI.
 
-- **AI-Powered Questions**: Generates unique Android interview questions using `gemini-2.0-flash`.
-- **Difficulty Grading**: Each question comes with a difficulty level (Easy, Medium, Hard).
-- **Comprehensive Answers**: Provides detailed explanations for each technical question.
-- **Modern UI**: Built entirely with Jetpack Compose and Material Design 3.
-- **Reactive Architecture**: Uses StateFlow and ViewModel for a robust, reactive data flow.
+## Features
 
-## 🛠️ Tech Stack
+- AI-generated Android interview questions
+- Structured JSON responses from Gemini
+- Difficulty classification (Easy, Medium, Hard)
+- Detailed explanations for each answer
+- Automatic JSON deserialization using Kotlin Serialization
+- Reactive UI powered by StateFlow
+- Jetpack Compose and Material 3 interface
+
+## Tech Stack
 
 - **Language**: Kotlin
 - **UI Framework**: Jetpack Compose
 - **Asynchronous Programming**: Kotlin Coroutines & Flow
 - **AI Integration**: [Google GenAI SDK](https://github.com/google/generative-ai-android)
 - **JSON Parsing**: Kotlin Serialization
-- **Dependency Injection**: Manual (ViewModelProvider)
 - **Build System**: Gradle Kotlin DSL
 
-## 📋 Prerequisites
+## Architecture
+
+```text
+Compose UI
+    ↓
+MainViewModel
+    ↓
+Gemini API
+    ↓
+Structured JSON Response
+    ↓
+Kotlin Serialization
+    ↓
+Interview Question Model
+    ↓
+Compose UI
+```
+
+## Prerequisites
 
 - Android Studio Ladybug or newer.
 - A Gemini API Key from [Google AI Studio](https://aistudio.google.com/).
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 1. **Clone the repository**:
    ```bash
@@ -41,13 +62,53 @@ A modern Android application that uses the Gemini AI model to generate technical
 3. **Build and Run**:
    Open the project in Android Studio and run the `app` module on an emulator or physical device.
 
-## 🏗️ Project Structure
+## AI Concepts Explored
+
+### Structured Output
+
+Using Gemini to generate interview questions in a predefined JSON schema instead of free-form text.
+
+### JSON Parsing
+
+Converting AI-generated JSON into strongly typed Kotlin data models using Kotlin Serialization.
+
+### Prompt Engineering
+
+Designing prompts that consistently produce valid and parsable JSON responses.
+
+### State Management
+
+Managing AI-generated content using ViewModel and StateFlow.
+
+### AI-Powered Content Generation
+
+Generating Android interview questions, difficulty levels, and explanations dynamically using Gemini.
+
+## Roadmap
+
+### Completed
+
+- [x] Gemini Integration
+- [x] Structured JSON Output
+- [x] Kotlin Serialization
+- [x] StateFlow State Management
+- [x] Jetpack Compose UI
+
+### Future Improvements
+
+- [ ] Save Generated Questions
+- [ ] Question Categories
+- [ ] Offline Cache (Room)
+- [ ] Share/Export Questions
+
+## Project Structure
 
 - `MainActivity.kt`: The main entry point, hosting the Compose UI.
 - `MainViewModel.kt`: Handles AI interactions and state management.
+- `MainRepository.kt`: Handles Gemini API communication and JSON processing.
 - `InterviewQuestions.kt`: Data model for the AI-generated content.
 - `ui/theme/`: Contains Material 3 theme definitions.
 
-## 🛡️ License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
