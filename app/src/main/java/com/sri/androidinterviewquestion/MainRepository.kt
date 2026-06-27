@@ -55,7 +55,8 @@ class MainRepository {
                 return@withContext "{\"error\": \"Client error (${e.code()}): $safeMsg\"}"
             } catch (e: Exception) {
                 e.printStackTrace()
-                val safeMsg = (e.message ?: "Unknown error").replace("\"", "\\\"").replace("\n", " ")
+                val safeMsg = (e.message ?: "Unknown error")
+                    .replace("\"", "\\\"").replace("\n", " ")
                 return@withContext "{\"error\": \"Error: $safeMsg\"}"
             }
         }
